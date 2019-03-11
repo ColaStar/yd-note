@@ -522,31 +522,60 @@ LTS叫长期支持的。
 
 ## Winow命令
 ```
-dir   查看
-cd  切换  /去根目录  ~
-创建文件夹 md
-复制文件
-copy 要复制的文件 复制以后的文件与目录
-del 删除文件（不会出现在回收站中）
-rename更改文件名
-例：rename 要改的文件 更改后的文件名
-
+dir         列文件名
+deltree     删除目录树 
+cls         清屏 
+cd          改变当前目录。/去根目录
+copy        拷贝文件         例：copy 要复制的文件 复制以后的文件与目录
+rename     更改文件名    例：rename 要改的文件 更改后的文件名
+diskcopy    复制磁盘 
+del         删除文件 （不会出现在回收站中）
+format      格式化磁盘。
+edit        文本编辑 
+mem         查看内存状况 
+md          建立子目录 
+move        移动文件、改目录名。
+more        分屏显示 
+type        显示文件内容 
+rd          删除目录
+sys         制作DOS系统盘。
+ren         改变文件名 
+xcopy       拷贝目录与文件 
+chkdsk      检查磁盘 
+attrib      设置文件属性。
+fdisk       硬盘分区
+date        显示及修改日期 
+label       设置卷标号
+defrag      磁盘碎片整理。
+msd         系统检测 
+path        设置搜寻目录 
+share       文件共享
+memmaker    内存优化管理。
+help        帮助
+restore     恢复备份文件 
+set         设置环境变量
+time        显示及修改时间。
+tree        列目录树
+debug       随机调试程序 
+doskey      重新调用DOS命令
+prempt      设置提示符
+undelete    恢复被删的文件 
+scandisk    检测、修理磁盘。
 
 ```
 ## Cygwin
 在window用Linux命令
 
 
-## vim命令简介
+<!-- ## vim命令简介 -->
 
 
-## Linux目录
-Linux 只有一个盘符
+注意：Linux 只有一个盘符
 
 
-web服务器
+<!-- web服务器
 负载主机器进行分发，找到离自己最近的小机器，进行localhost（127.0.0.1）
-输入链接后->通过DNS服务查找到ip地址进行连接。
+输入链接后->通过DNS服务查找到ip地址进行连接。 -->
 
 
 
