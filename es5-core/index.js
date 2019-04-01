@@ -229,21 +229,129 @@
 
 
 // 每日一题
-function fn(num){
-console.log(this)
-console.log(this.length)
-}
-var a = {
-    length:5,
-    method:function(){
-        fn('井村雅代')   //指向window
-        arguments[0]()   //指向arguments对象
+// function fn(num){
+// console.log(this)
+// console.log(this.length)
+// }
+// var a = {
+//     length:5,
+//     method:function(){
+//         fn('井村雅代')   //指向window
+//         arguments[0]()   //指向arguments对象
+//     }
+// }
+// a.method(fn,1)   //
+// var c = 1 && 0 || 2;
+// console.log(c)
+// var s = [1,2,3,4,5].map(item=>{return item!=1 && item || false})
+// console.log(s)
+// var d = [1,2,3,4,5].filter(item=>{return item >2})
+// console.log(d)
+// var r = 'abcde'.slice(-2) === 'abcde'.substring(-2)
+// console.log('abcde'.slice(-2))
+
+// var v1 =1;
+// var v2 = (function(){
+//     var v1
+//     return v1 = 2
+// })()
+// var v3 = +!v2
+// console.log(v1,v2,v3)
+
+// for(let i = 0;i<5;i++){
+//     setTimeout(_=>{
+//         console.log(i)
+//     },50)
+// }
+// //0 1 2 3 4
+
+
+// for(var i = 0;i<5;i++){
+//     setTimeout(_=>{
+//         console.log(i)
+//     },50)
+// }
+// //5 5 5 5 5
+
+// for(var i = 0;i<5;i++){
+//     (function(){
+//         console.log(i)
+//     })()
+// }
+// // 0 1 2 3 4
+
+// for(let i = 0;i<5;i++){
+//         console.log(i)
+// }
+// console.log(i)
+// //0 1 2 3 4 5
+
+// for(var i = 0;i<5;i++){
+//     console.log(i)
+// }
+// console.log(i)
+// //0 1 2 3 4 5
+
+// function Foo(){
+//     getName = function(){
+//         console.log(1)
+//     }
+//     return this
+// }
+// Foo.getName = function(){
+//     console.log(2)
+// }
+// Foo.prototype.getName = function(){
+//     console.log(3)
+// }
+// var getName =function(){
+//     console.log(4)
+// }
+// function getName(){
+//     console.log(5)
+// }
+// Foo.getName();//2
+// getName();//4
+// Foo().getName();//1
+// getName();//1
+
+
+// var num = 60;
+// function numFn(){
+//     (function(){
+//         setTimeout(function(){
+//             num--;
+//             console.log(num)
+//             if(num>0){
+//                 numFn()
+//             }
+//         },1000)
+//     })()
+// }
+// numFn()
+function add() {
+    // 第一次执行时，定义一个数组专门用来存储所有的参数
+    var _args = [].slice.call(arguments);
+
+    // 在内部声明一个函数，利用闭包的特性保存_args并收集所有的参数值
+    var adder = function () {
+        var _adder = function() {
+            [].push.apply(_args, [].slice.call(arguments));
+            return _adder;
+        };
+
+        // 利用隐式转换的特性，当最后执行时隐式转换，并计算最终的值返回
+        _adder.toString = function () {
+            return _args.reduce(function (a, b) {
+                return a + b;
+            });
+        }
+
+        return _adder;
     }
+    return adder.apply(null, [].slice.call(arguments));
 }
-a.method(fn,1)   //
 
-
-
-
-
-
+console.log(add(1)(2))
+console.log(add(1,2,3)(10))
+console.log(add(1)(2)(3)(4)(5))

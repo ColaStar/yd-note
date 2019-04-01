@@ -14,7 +14,6 @@
 // // console.log(1)
 // // else;
 
-
 // var o = {
 //     next:{
 //         next:{
@@ -34,6 +33,10 @@
 // console.log(Ofn(o))
 
 
-if(true){
-    throw new Error('212122')
-}
+// if(true){
+//     throw new Error('212122')
+// }
+var a = [1,2,3,4,5,6,7,8]
+var b = [].concat(a)
+var c =b.forEach(ele=> ele+1)
+console.log(a,b,c)
