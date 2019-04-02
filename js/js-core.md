@@ -672,7 +672,13 @@ console.log(filterItems('ap')); // ['apple', 'grapes']
 console.log(filterItems('an')); // ['banana', 'mango', 'orange']
 ```
 
-//Array.prototype.includes()
+
+
+> Array.prototype.includes()
+
+**兼容性**：
+不兼容IE
+
 includes方法用来判断一个数组是否包含一个指定的值，根据情况，如果包含则返回 true，否则返回false。
 ```
 //语法
@@ -686,4 +692,358 @@ fromIndex 可选：
 
 ```
 
+**例**
+```
+//fromIndex 大于等于数组长度
+//计算出的索引小于 0
+//在函数的 arguments 对象上调用的 includes() 方法。
+```
+**Polfill**
+```
+待补充
+```
 
+>  Array.forEach()
+
+对数组的每个元素执行一次提供的函数
+
+**兼容**：IE9
+
+```
+//语法
+arr.forEach(callback[, thisArg]);
+
+//参数
+callback为数组每个元素执行的函数，该函数接收3个参数
+    item数组中正在处理的当前元素
+    index数组中正在处理的当前元素的索引值
+    arr：正在操作的数组
+
+//返回值：undefined
+
+Array.forEach((item,index,arr)=>{
+
+})
+```
+
+**例**
+```
+//for 循环转换为 forEach
+//打印出数组的内容
+//使用 thisArg
+//对象复制函数
+```
+
+> Array.indexOf()
+
+返回数组中可以找到一个给定元素的第一个索引，如果不存在，返回-1；
+
+**兼容IE9**
+```
+//语法
+arr.indexOf(searchEle,formIndex)
+//参数
+searchEle要查询的元素
+formIndex开始查找的位置，如果大于数组长度就不会在该数组中寻找返回-1，如果是负数，从后往前查找。如果大于数组的长度，从整个数组中查找，默认为0
+//返回值:返回数组中可以找到一个给定元素的第一个索引，如果不存在则返回-1
+```
+**例**
+```
+//找出指定元素出现的所有位置
+const newarr = [];
+const index = arr.indexOf(ele);
+while(index != -1){
+  newarr.push(index)
+  index = (index > 0 ? array.indexOf(ele, index + 1) : -1);
+}
+```
+
+> Array.lastIndexOf()
+
+返回指定元素（也即有效的 JavaScript 值或变量）在数组中的最后一个的索引，如果不存在则返回 -1。从数组的后面向前查找，从 fromIndex 处开始。
+
+**语法**
+```
+arr.lastIndexOf(ele,index)
+//参数
+ele:要查找的元素
+index:从此位置开始逆向查找。默认为数组的长度减 1，即整个数组都被查找。如果该值大于或等于数组的长度，则整个数组会被查找。如果为负值，将其视为从数组末尾向前的偏移。即使该值为负，数组仍然会被从后向前查找。如果该值为负时，其绝对值大于数组长度，则方法返回 -1，即数组不会被查找。
+//返回值
+数组中最后一个元素的索引，如未找到返回-1
+```
+
+> Array.map()
+创建一个新数组，其结果是该数组中的每个元素都调用一个提供的函数后返回的结果。
+
+**语法**
+  ```
+var new_array = arr.map(function callback(currentValue[, index[, array]]) {
+ // Return element for new_array }[, 
+thisArg])
+//参数
+callback回调函数
+    value数组中正在处理的当前元素
+    index 数组中正在处理的当前元素的索引值
+    array 当前数组
+thisArg:执行 callback 函数时使用的this 值。
+//返回一个新数组，每个元素都是回调函数的结果。不修改原数组
+  ```
+
+  **例**
+  ```
+  [1,2,3,4,5,6,7,8].map(parseInt)
+  parseInt可传2个参数第二值是进制，所以把索引值传入后得到以下结果
+  //1,NaN,NaN,NaN,NaN,NaN,NaN,NaN
+  [1,2,3,4,5,6,7,8].map(Number)
+  //1,2,3,4,5,6,7,8
+
+  ```
+
+> Array.reduceRight()
+
+接受一个函数作为累加器（accumulator）和数组的每个值（从右到左）将其减少为单个值。
+
+**语法**
+```
+arr.reduceRight(callback[, initialValue])
+//参数
+  callback
+       prev:上一次调用回调的结果
+       cur：当前被处理的元素
+       index：当前处理元素的索引
+       array：调用reduceRight的数组
+  initialValue：可作为第一次调用回调 callback 的第一个参数
+  返回值：函数累计执行之后的返回值
+```
+**例**
+```
+//扁平化一个元素为数组的数组
+var flattened = [[0, 1], [2, 3], [4, 5]].reduceRight(function(a, b) {
+    return a.concat(b);
+}, []);
+// flattened is [4, 5, 2, 3, 0, 1]
+
+//与reduce的区别
+var a = ['1', '2', '3', '4', '5']; 
+var left  = a.reduce(function(prev, cur)      { return prev + cur; }); 
+var right = a.reduceRight(function(prev, cur) { return prev + cur; }); 
+
+console.log(left);  // "12345"
+console.log(right); // "54321"
+```
+
+> Array.reduce()
+
+**兼容到IE9**
+
+接受一个函数作为累加器（accumulator）和数组的每个值（从左到右）将其减少为单个值。
+
+**语法**
+
+```
+arr.reduce(callback[, initialValue])
+//参数
+  callback
+       prev:上一次调用回调的结果
+       cur：当前被处理的元素
+       index：当前处理元素的索引
+       array：调用reduceRight的数组
+  initialValue：可作为第一次调用回调 callback 的第一个参数
+  返回值：函数累计执行之后的结果
+```
+
+**例**
+```
+//数组去重
+let arr = [1,2,1,2,3,5,4,5,3,4,4,4,4];
+let result = arr.sort().reduce((init, current)=>{
+    if(init.length===0 || init[init.length-1]!==current){
+        init.push(current);
+    }
+    return init;
+}, []);
+console.log(result); //[1,2,3,4,5]
+
+//用map实现一个reduce
+var initItem = []
+function mapReduce(arr,fn,initItem){
+    var sum = initItem ? initItem : 0;  
+    arr.map((item,index,arr)=>{
+        sum = fn(sum,item)
+        console.log(sum)
+    })
+    return sum
+}
+function fn(a,b){
+  return a+b
+}
+mapReduce(arr,initItem)
+```
+
+> arr.join
+
+**兼容IE5**
+将一个数组（或一个类数组对象）的所有元素连接成一个字符串并返回这个字符串。如果数组只有一个项目，那么将返回该项目而不使用分隔符。
+
+**语法**
+
+```
+arr.join([separator])
+//参数：指定一个字符串来分隔数组的每个元素。如果需要，将分隔符转换为字符串。如果省略()，数组元素用逗号分隔。默认为 ","。如果separator是空字符串("")，则所有元素之间都没有任何字符。
+//返回值：一个所有数组元素连接的字符串。如果 arr.length 为0，则返回空字符串。如果其中一个元素是null或undefined返回空字符串
+```
+**例**
+```
+//通过不同连接符连接数组元素（为空默认使用，''转换为'1256'）
+//连接类数组
+Array.prototype.join.call(arguments)
+```
+
+> Array.keys()
+**不兼容IE**
+
+返回一个包含数组中每个索引键的Array Iterator对象。
+
+**示例**
+```
+var arr = ["a", , "c"];
+var sparseKeys = Object.keys(arr);
+var denseKeys = [...arr.keys()];
+console.log(sparseKeys); // ['0', '2']
+console.log(denseKeys);  // [0, 1, 2]
+```
+
+> Array.shift()
+**兼容到IE5**
+
+
+从数组中删除第一个元素，并返回该元素的值。此方法更改数组的长度。
+
+**注意**
+**返回值**：从数组中**删除的元素**; 如果数组为空则返回undefined 。
+
+> Array.pop
+
+**兼容到IE5**
+删除数组中最后一个元素并返回该元素的值，此方法改变原数组
+
+**注意**  
+从数组中删除的元素(当数组为空时返回undefined)。
+
+> Array.push()
+
+**兼容到IE5**   
+
+一个或多个元素添加到数组的末尾，并返回该数组的新长度
+
+> Array.unshift()
+**兼容到IE5**   
+
+将一个或多个元素添加到数组的开头，并返回该数组的新长度
+
+> Array.slice()
+返回一个新的数组对象，这一对象是一个由 begin和 end（不包括end）决定的原数组的浅拷贝。原始数组**不会被改变**
+
+**语法**
+
+```
+arr.slice();
+// [0, end]
+
+arr.slice(begin);
+// [begin, end]
+
+arr.slice(begin, end);
+// [begin, end)
+
+参数
+begin
+1.从该索引处开始提取原数组中的元素（从0开始）。
+2.如果该参数为负数，则表示从原数组中的倒数第几个元素开始提取，slice(-2)表示提取原数组中的倒数第二个元素到最后一个元素（包含最后一个元素）。
+3.如果省略 begin，则 slice 从索引 0 开始。
+end
+1.在该索引处结束提取原数组元素（从0开始）。slice会提取原数组中索引从 begin 到 end 的所有元素（包含begin，但不包含end）。
+slice(1,4) 提取原数组中的第二个元素开始直到第四个元素的所有元素 （索引为 1, 2, 3的元素）。
+2.如果该参数为负数， 则它表示在原数组中的倒数第几个元素结束抽取。 slice(-2,-1)表示抽取了原数组中的倒数第二个元素到最后一个元素（不包含最后一个元素，也就是只有倒数第二个元素）。
+3.如果 end 被省略，则slice 会一直提取到原数组末尾。
+4.如果 end 大于数组长度，slice 也会一直提取到原数组末尾。
+```
+
+> Array.splice()
+通过删除或替换现有元素来修改数组,并以数组形式返回被修改的内容。此方法会**改变原数组**。
+**语法**
+```
+array.splice(start[, deleteCount[, item1[, item2[, ...]]]])
+
+//参数
+start​
+  指定修改的开始位置（从0计数）。如果超出了数组的长度，则从数组末尾开始添加内容；如果是负值，则表示从数组末位开始的第几位（从-1计数）；如果负数的绝对值大于数组的长度，则表示开始位置为第0位。
+deleteCount 可选
+  整数，表示要移除的数组元素的个数。
+  如果 deleteCount 大于 start 之后的元素的总数，则从 start 后面的元素都将被删除（含第 start 位）。
+  如果 deleteCount 被省略，则其相当于 array.length - start。
+  如果 deleteCount 被省略了，或者它的值大于等于array.length - start(也就是说，如果它大于或者等于start之后的所有元素的数量)，那么start之后数组的所有元素都会被删除。
+  如果 deleteCount 是 0 或者负数，则不移除元素。这种情况下，至少应添加一个新元素。
+  item1, item2, ... 可选
+  要添加进数组的元素,从start 位置开始。如果不指定，则 splice() 将只删除数组元素。
+返回值
+  由被删除的元素组成的一个数组。如果只删除了一个元素，则返回只包含一个元素的数组。如果没有删除元素，则返回空数组。
+```
+
+> Array.reverse()
+
+**兼容到IE5**
+
+将数组中元素的位置颠倒,并返回该数组。该方法会改变原数组。
+
+> Array.sort()
+用原地算法对数组的元素进行排序，并返回数组。排序算法现在是稳定的。默认排序顺序是根据字符串Unicode码点。
+
+
+
+```
+语法：arr.sort([compareFunction])
+compareFunction 可选
+用来指定按某种顺序进行排列的函数。如果省略，元素按照转换为的字符串的各个字符的Unicode位点进行排序。
+firstEl
+第一个用于比较的元素。
+secondEl
+第二个用于比较的元素。
+返回值：
+排序后的数组。请注意，数组已原地排序，并且不进行复制。
+```
+**注意**：1.由于它取决于具体实现，因此无法保证排序的时间和空间复杂性
+2.如果没有指明 compareFunction ，那么元素会按照转换为的字符串的诸个字符的Unicode位点进行排序。例如 "Banana" 会被排列到 "cherry" 之前。当数字按由小到大排序时，9 出现在 80 之前，但因为（没有指明 compareFunction），比较的数字会先被转换为字符串，所以在Unicode顺序上 "80" 要比 "9" 要靠前。
+
+如果指明了 compareFunction ，那么数组会按照调用该函数的返回值排序。即 a 和 b 是两个将要被比较的元素：
+
+如果 compareFunction(a, b) 小于 0 ，那么 a 会被排列到 b 之前；
+如果 compareFunction(a, b) 等于 0 ， a 和 b 的相对位置不变。备注： ECMAScript 标准并不保证这一行为，而且也不是所有浏览器都会遵守（例如 Mozilla 在 2003 年之前的版本）；
+如果 compareFunction(a, b) 大于 0 ， b 会被排列到 a 之前。
+compareFunction(a, b) 必须总是对相同的输入返回相同的比较结果，否则排序的结果将是不确定的。
+
+> Array.toLocaleString() 
+返回一个字符串表示数组中的元素。数组中的元素将使用各自的 toLocaleString 方法转成字符串，这些字符串将使用一个特定语言环境的字符串（例如一个逗号 ","）隔开。
+
+**语法**   
+```
+//参数
+locales 可选
+带有BCP 47语言标记的字符串或字符串数组，关于locales参数的形式与解释，请看Intl页面。
+options 可选
+一个可配置属性的对象，对于数字 Number.prototype.toLocaleString()，对于日期Date.prototype.toLocaleString().
+
+数组中的元素将会使用各自的 toLocaleString 方法
+
+var prices = ['￥7', 500, 8123, 12];
+prices.toLocaleString('ja-JP', { style: 'currency', currency: 'JPY' });
+
+// "￥7,￥500,￥8,123,￥12"
+```
+
+> Array.toString
+
+返回一个字符串，表示指定的数组及其元素。
+
+```
+[1, 2, 'a', '1a'].toString()   //1,2,a,1a

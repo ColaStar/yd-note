@@ -36,7 +36,17 @@
 // if(true){
 //     throw new Error('212122')
 // }
-var a = [1,2,3,4,5,6,7,8]
-var b = [].concat(a)
-var c =b.forEach(ele=> ele+1)
-console.log(a,b,c)
+var arr = [1,2,3,4,5,6,7,8]
+// var b = [].concat(a)
+// var c =b.forEach(ele=> ele+1)
+// console.log(a,b,c)
+
+var user = { 
+    age: 20, 
+    init:function(){
+           return this.age
+          } 
+   } 
+   var data = {age:40} 
+   var s = user.init.bind(data); 
+   console.log(s())//40
