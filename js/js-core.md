@@ -165,7 +165,7 @@ Object.defineProperty(obj, prop, descriptor)
 
 
 #### 额外的数组
-> **Array.form**  
+> **Array.isArray()**  
 
 判断是不是数组
 ```
