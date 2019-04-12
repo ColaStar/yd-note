@@ -390,3 +390,137 @@ $age = $xiaowang->info();
 echo "<br/>"
 echo $age;
 ```
+
+#### 构造方法与析构析构方法
+- 构造方法
+//当这个类new的时候被自动执行的
+```
+构造方法语法格式
+[修饰符]function __construct(参数){
+
+}
+```
+- 析构方法
+//当对应类不会再使用相关的方法和属性的时候，被调用
+```
+[修饰符]function __destruct(参数){
+[代码体]
+}
+```
+- 构造方法与析构方法的实例
+```
+class App{
+  public function __construct($name,$age){
+//当这个类new的时候被自动执行的
+$this ->name =$name
+$this ->age =$age
+  }
+  public function data(){
+    return $this->age
+  }
+  public function __destruct(){
+    //用途 可以进行资源的释放操作 数据库关闭
+    //对象被销毁的时候被执行，没有代码被运行了
+    echo "bye bye{$this->name}"
+  }
+}
+$xiaowang = new App('first',20)
+echo $xiaowang ->data();
+```
+#### 面向对象的封装性
+> 设置私有成员与私有成员的访问
+
+- 封装的修饰符
+
+封装是面向对象编程中的三大特性之一，封装就是把对象中的成员属性和成员方法加上访问修饰符，使其尽可能隐藏对象的内部细节，已达到对成员的访问控制（切记不是拒绝访问)。
+
+**PHP5支持如下3种访问修饰符**
+```
+public    (公有的 默认)
+private    (私有的)
+protected    (受保护的)
+```
+- 设置私有成员
+只要在声明成员属性或方法时，使用private关键词修饰就是实现了对成员的私有封装。
+```
+class Penson{
+  private $name;
+  private $age;
+  private function say(){
+    //...
+  }
+}
+```
+- 访问私有成员
+封装后的成员在对象外部不能直接访问，只能在对象内部方法中使用$this访问
+```
+class Penson{
+  private $name;
+  public function say(){
+    return $this->name
+  }
+}
+```
+- 魔术方法__set()
+当外边类里的属性设置的时候被调用
+- 魔术方法__get()
+- 魔术方法__isset()
+- 魔术方法__unset()
+- 类的访问权限
+||private|protexted|public默认的|
+|:--:|:--:|:--:|:--:|
+|在同一类|可以|可以|可以|
+|在类的外部|不可以|不可以|可以|
+```
+class Penson{
+  piblic $name ='张三、';//公有的
+  private $age = 27;//私有的
+  protected $money= 90;//受保护的的
+  
+  //私有的成员方法  不能在类的外部直接访问
+  private function getAge(){
+return $this -> age;
+  }
+  //被保护的成员方法  不能在类的外部直接访问
+  protected function getMoney(){
+return $this -> money;
+    
+  }
+  public function userCard(){
+echo $this->getName() . $thi -> getMoney();
+  }
+  public function __set($name,$value){
+    //魔术方法的set，只针对保护的和私有的
+    if($key == 'name' && $value === 'laowang'){
+       $this ->name = 'xiaowang';
+    }
+  }
+  public function __get($key){
+if($key =='age'){
+  return '唉呀妈呀';
+}
+  }
+  public function __isset($key){
+     if($key == 'age'){
+       return 'true';
+     }
+  }
+  public function __unset($key){
+     if($key == 'name'){
+       return;
+     }
+  }
+}
+$xiaowang = new Penson();
+//echo $xiaowang->name; //张三
+//echo $xiaowang->age; //私有的
+//echo $xiaowang->money ;//被保护的
+//echo $xiaowang->userCard();张三90
+
+$xiaowang->name  = '老王';//张三
+echo $xiaowang->userCard()xiaowang90;
+echo $xiaowang->age;
+echo isset($xiaowang->age)//判断类里边有没有这个成员属性，返回布尔值，当私有或者首保护的时候返回false;
+echo unset(xiaowang->name)//把成员属性干掉
+
+```
