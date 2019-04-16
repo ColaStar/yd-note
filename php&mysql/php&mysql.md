@@ -147,7 +147,7 @@ mysqli_close($conn);
 1.创建数据库需要设置库名，与字符类型（一般是utf8_general_ci）  
 创建数据表的时：
 1.表名，字段数
-2.主键是设置自增，字符类型设置VARCHAR，数字类型设置INT，文本类型（内容较多）设置TEXT，时间设置DATE
+2.主键PK，NN非空，设置自增AI，字符类型设置VARCHAR，数字类型设置INT，文本类型（内容较多）设置TEXT，时间设置DATE
 当然了设置数据类型是根据业务而设置，一般就是字符，数字，文本，时间等
 - 插入数据
 ```
@@ -524,3 +524,270 @@ echo isset($xiaowang->age)//判断类里边有没有这个成员属性，返回�
 echo unset(xiaowang->name)//把成员属性干掉
 
 ```
+#### 类的继承与多态
+> 类继承的应用
+php只支撑单继承，不允许多重继承。一个子类只能有一个父类，不允许一个类直接继承多个类，但是一个类可以被多个类继承。  
+可以有多层继承，即一个类可以继承某个类的子类，如类B继承了A，类C继承了类B，类C就继承了类A   
+翻译一下就是一个可以有多个儿子但是只能有一个父亲。
+```
+class A{
+   
+}
+class B extends A{
+  
+}
+```
+> 访问类型的控制
+||private|protected|public|
+|:--:|:--:|:--:|:--:|
+|在同一类|可以|可以|可以|
+|在子类|不可以|可以|可以|
+|在类的外部|不可以|不可以|可以|
+
+> 子类中重载父类的方法
+
+多态就是多种状态
+重载：你的方法还叫A，但是参数与父类不一样onload
+重写：就是你的方法还叫 A，把父类的方法覆盖了onread
+- 在子类里面允许重写（覆盖）父类中的方法
+- 在子类中 使用parent访问父类中被覆盖的属性与方法
+
+- 调用
+parent::construct()
+parent::fun()
+
+```
+class Penson{
+     public $name;
+     private $age;
+     protected $money();
+     function __construct(){
+       $this -> name = $name;
+       $this -> age = $age;
+       $this -> money = $money;
+     }
+     public function cardInfo(){
+       echo $this->name.$this.age.$this.money''
+     }
+}
+
+class Yellow extends Penson{
+     functiion __construct($name,$age,$money){
+         parent::__construct($name,$age,$money)//重载
+     }
+     //php重写
+       public function cardInfo($pp){
+         parent::cardInfo()//php重载方法
+         echo $pp
+     }
+     public function test(){
+       echo $this->money
+     }
+}
+$s =new Yellow('xiaowang',30,20)
+$s->cardInfo()
+$s->name //共有可以继承
+$s->age //私有可以继承
+$s->money //受保护的可以继承但是外部不能访问
+$this->test()受保护的就可以调用了
+```
+#### PHP面向对象程序设计之抽象类与接口
+>抽象方法与抽象类
+当类中有一个方法，他没有方法体，也就是没有花括号，直接分号结束，象这种方法我们叫抽象方法，必须使用关键字abstract定义。
+如：
+```
+public abstract function();
+```
+包含这种方法的类必须是抽象类也要使用关键字也要使用关键字abstract加以声明。（即使用关键字abstract修饰的类为抽象类）
+**抽象类的特点：**  
+- 不能实例化，也就是不能new成一个对象，
+- 若想使用抽象类，就必须定义一个类去继承这个抽象类，并定义覆盖父类的抽象方法（实现抽象方法）
+>接口技术
+PHP与大多数面向对象编程语言一样，不支持多重继承，也就是说每个类只能继承一个父类，为了解决这个问题，PHP引入了接口，接口的思想是指定了一个实现了该接口的类必须实现的一系列函数。
+**定义格式**
+```
+interface 接口名称{
+  //常量成员（使用const关键字定义）
+  //抽象方法（不需要使用abstract关键字）
+}
+```
+**使用格式**
+```
+class 类名 implements 接口名1，接口名2{... ...}
+```
+**抽象类与接口的区别**
+当你关注事物的本质时候，用抽象类；当关注一个操作的时候，用接口
+
+接口是对动作的抽象，表示这个对象能做什么，对类的局部行为进行抽象。  
+抽象类是对根源的抽象，表示这个类是什么，对类的整体进行抽象，对一类事物的抽象描述。  
+
+比如，男人，女人，这俩个类（如果是类的话），他们抽象类诗人。说明，他们都是人，人可以吃东西，狗也可以吃东西，你可以把'吃东西'定义成一个接口，然后让这些类去实现它。
+
+所以，在高级语言上，一个类只能继承一个类（抽象类）（正如人不可能同事是生物和非生物）但是可以实现多个接口（吃饭接口，走路接口等）
+
+- 接口是抽象类的变体，接口中所有的方法都是抽象的，儿抽象类是声明方法而不去实现它的类。
+- 接口可以多继承，抽象类不行。
+接口定义方法，不能实现，而抽象类可以实现部分方法。
+- 接口中基本数据类型为static而抽象类不是。
+- 接口中不能含有静态代码块以及静态方法，而抽象类可以含有静态方法和静态代码块
+
+
+>多态应用
+对象的多态性：是指父类中定义的属性或行为被子类继承后，可以具有不同的数据类型或不同的行为。这使得同一个属性和方法在父类及其各个子类中具有不同的语义。
+
+```
+<?php
+/**
+*1.含有抽象方法的类必须是抽象类
+*2.抽象类不一定非得含有抽象方法
+*3.抽象类可以有存在普通的方法
+*4.抽象类不能被实例化,必须由一个子类继承，并且把抽象类得抽象方法都实现了。
+*5.
+*
+*/
+abstract class Penson{
+    public abstract function eat(){
+      echo 'eat';
+    }
+    //抽象方法 没有方法体
+    public abstract function tell()
+}
+class Man extends Person{
+      public function eat(){};//抽象类中的方法必须实现了
+      public function tell(){
+        echo 'Man tell'
+      }
+}
+$man = new Man();
+?>
+```
+```
+//接口
+/*
+*1.接口声明得关键字是interface
+*2.接口还可以声明常量，也可以抽象方法，不能声明变量
+*3.接口中的方法都是抽象方法，不用abstract去人肉定义
+*4.接口不能被实例化 需要一个类去实现它
+*/5.一个类不能继承多个类 一个类可以实现多个接口
+<?php
+interface Penson{
+  const NAME = 'lvjian';
+  pubilc function eat();
+  public function run();
+}
+interface Study{
+  public function study();
+}
+class Student implements Penson,Study{
+    public function run(){
+      echo 'run';
+    }
+    public function eat(){
+      echo 'eat';
+    }
+    public function study(){
+      echo 'study';
+    }
+     public static function test(){
+      echo self::data;
+    }
+}
+$lj = new Student;
+$lj->eat();
+//常量使用
+echo $lj::NAME;
+echo Student::data;
+$lj->test();
+
+?>
+```
+#### PHP中常见的关键字
+- final关键字
+只能用来修饰类和方法，不能使用final这个关键字来修饰成员属性  
+final特性：
+1)使用final关键字标识的类不能被覆盖
+2)使用final关键字表示的方法不能被子类覆盖（重写），是最终版本  
+目的  
+1)是为了安全  
+2)是没必要被继承重写
+
+- static关键字
+表示静态的意思，用于修饰类的成员属性和成员方法（即静态属性和静态方法）。
+
+类中的静态属性和方法不用实例化(new) 就可以直接使用类名访问。
+
+格式：  
+类：：$静态属性        类：：静态方法
+在类的方法中。不能this来引用变量或静方法，而需要用self来引用。  
+格式：
+self：：$静态属性       self：：$静态方法  
+静态方法中不可以使用非静态的内容。就是不让使用$this.  
+静态属性是共享的，也就是new很多对象也是共用一个属性。
+
+
+- 单例设计模式
+单类模式主要的作用是保证在面向对象的编程设计中，一个类只能有一个实例对象存在。
+
+- const关键字
+const是一个在类中定义敞亮的关键字，我们都知道在PHP中定义常量使用的"define"这个函数，但是在类里面顶i有常量使用的是"const"这个关键字  
+语法：  
+const CONSTANT = 'conat value';//定义
+echo self::CONSTANT;//在类的内部访问
+echo 类名::CONSTANT;//在类的外部访问
+- instanceof关键字
+关键字用于检测当前对象是不是属于某个类或者这个类的子类。
+- 魔术方法
+克隆，类中通用的方法，自动加载类
+常用函数
+class_exists检测类是否存在  
+get_class_methods拿到类里边的方法  名组成的数组
+get_class拿到类返回对象的类名
+get_object_vars返回对象属性组成的数组
+get_parent_class返回对象或类的父类名
+is_a如果对象属于该类或该类是此对象的父类则返回true
+methods_exists检测类的方法是否存在
+property_exists检测对象或类是否具有该属性
+#### PHP错误处理类
+- 系统自带的异常处理
+php返回的错误信息比js的全面好多
+- 自定义异常处理
+通过继承Exception类添加新的信息
+js叫Error。
+- 捕捉多个异常处理
+if else多个catch去处理异常
+
+#### PHP与js的比较
+js中不存在class用function
+
+```
+本身就是一个函数
+当new的时候就会被主动执行
+function Car(color){
+  this.color = color
+  console.log(1111)
+}
+Car.prototypr.run = function(){
+  console.log(this.color)
+}
+var Son = function(color){
+  Car.call(this,color)
+}
+var _prototype = Object.create(Car.prototype)//父类的原型
+_prototype.constructor = Son;
+Son.prototype = _prototype
+son.prototype.gogo = function(){
+  console.log(111)
+}
+
+var a = new Son('red');
+var b = new Car('red');
+console.log(a)
+console.log(b)
+
+prototype是原型
+构造函数在原型上，
+js放的方法定义在prototype上，是因为共享
+
+```
+
+
