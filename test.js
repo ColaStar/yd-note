@@ -31,19 +31,67 @@
 // console.log(obj.getName) //user is not defined
 
 
-function fun(n,o){
-    console.log(o);
-    return {
-        fun:function(m){
-            return fun(m,n)
-        }
+// function fun(n,o){
+//     console.log(o);
+//     return {
+//         fun:function(m){
+//             return fun(m,n)
+//         }
+//     }
+// }
+// var a = fun(0)   //undefined    fun函数
+// a.fun(1)  //0  fun函数
+// a.fun(2)  //0
+// var b = fun(0).fun(1).fun(2).fun(3)
+// var c = fun(0).fun(1)
+// c.fun(2)
+// c.fun(3)
+
+
+// class Person{
+//     constructor(name,age){
+//         this.name = name;
+//         this.age = age
+//         console.log(name,age)
+//     }
+//     getname(name){
+//         console.log(this.name)
+//         console.log(name)
+//     }
+// }
+// function test(){
+//     this.name = 'lvjian'
+// }
+// test.prototype.eat= function(){
+//     console.log(this.name)
+// }
+
+// var penson1 = new Person('lvjian','12')
+// // penson1.getname('zhangsan')
+// var test1= new test()
+// test1.prototype = Person1.prototype
+// console.log(test1)
+// test1.eat()
+// console.log(test1)
+
+
+function a (){
+    d = function(){
+        console.log(1)
     }
+    return this
 }
-var a = fun(0)   //undefined    fun函数
-a.fun(1)  //0  fun函数
-a.fun(2)  //0
-var b = fun(0).fun(1).fun(2).fun(3)
-var c = fun(0).fun(1)
-c.fun(2)
-c.fun(3)
+a.d =function(){
+    console.log(2)
+}
+a.prototype.d =function(){
+    console.log(3)
+}
+var d =function(){
+    console.log(4)
+}
+function d(){
+    console.log(4)
+}
+a.d()
 
