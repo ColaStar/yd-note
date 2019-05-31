@@ -39,7 +39,7 @@ Function.prototype.bind2 = function(context) {
 
 ```
 Function.prototype.bind2 = function (context) {
-  var self = this;
+  var _self = this;
   
   // 获取 bind2 函数从第二个参数到最后一个参数
   var args = Array.prototype.slice.call(arguments, 1);
@@ -47,7 +47,7 @@ Function.prototype.bind2 = function (context) {
   return function() {
     // 这个时候的 arguments 是指bind返回的函数传入的参数。
     var bindArgs = Array.prototype.slice.call(arguments);
-    return self.apply(context, args.concat(bindArgs));
+    return _self.apply(context, args.concat(bindArgs));
   }
 }
 ```
@@ -136,12 +136,12 @@ Function.prototype.bind2 = function(context){
     if (typeof this !== "function") {
     throw new Error("Function.prototype.bind - what is trying to be bound is not callable");
   }
-     var self = this;
+     var _self = this;
      var args = Array.prototype.slice.call(1,arguments);
      var trfn = function(){}
      var returnFn = function(){
          var bindArgs = Array,prototype.slice.call(arguments);
-         return self.apply(this in trfn ? this : context,args.concat(bindargs))
+         return _self.apply(this in trfn ? this : context,args.concat(bindargs))
      }
      trfn.prototype = this.prototype;
      returnFn.prototype = new trfn()
